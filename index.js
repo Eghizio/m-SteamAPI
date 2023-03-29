@@ -12,7 +12,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {String}
          */
-        getPlayerCount: (appID) => client.getPlayerCount(appID).then(res => res.response.player_count), // toString?
+        getPlayerCount: (appID) => client.get.playerCount(appID).then(res => res.response.player_count), // toString?
         /**
          * @name                  getPlayerSummaries
          * @description           Get back player data from specified SteamID64.
@@ -21,7 +21,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getPlayerSummaries: (steamID) => client.getPlayerSummaries(steamID).then((res) => res.response.players[0]),
+        getPlayerSummaries: (steamID) => client.get.playerSummaries(steamID).then((res) => res.response.players[0]),
         /**
          * @name                  getUserGroups
          * @description           Get back user groups list from specified SteamID64.
@@ -30,7 +30,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getUserGroups: (steamID) => client.getUserGroups(steamID).then(res => res.response.groups.map(group => group.gid)),
+        getUserGroups: (steamID) => client.get.userGroups(steamID).then(res => res.response.groups.map(group => group.gid)),
         /**
          * @name                  resolveVanityUrl
          * @description           Get back user SteamID64 from VanityURL.
@@ -39,7 +39,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {String}
          */
-        resolveVanityUrl: (vanityURL) => client.resolveVanityUrl(vanityURL).then(({ response: { success, steamid } }) =>
+        resolveVanityUrl: (vanityURL) => client.get.resolveVanityUrl(vanityURL).then(({ response: { success, steamid } }) =>
             success ? steamid : `Couldn't find SteamID for specified VanityURL!`
         ), // should just throw tbh. you are hiding errors
         /**
@@ -50,7 +50,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserBans: (steamID) => client.getUserBans(steamID).then(({ players }) => {
+        getUserBans: (steamID) => client.get.userBans(steamID).then(({ players }) => {
             const [first] = players;
             return {
                 communityBanned: first.CommunityBanned,
@@ -69,7 +69,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getGameAchievements: (appID) => client.getGameAchievements(appID).then(({ game }) =>
+        getGameAchievements: (appID) => client.get.gameAchievements(appID).then(({ game }) =>
             game.availableGameStats.achievements.map(({ displayName, description, icon, icongray, hidden }) => ({
                 name: displayName,
                 description,
@@ -87,7 +87,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getUserStatsForGame: (steamID, appID) => client.getUserStatsForGame(steamID, appID).then(res => res.playerstats.stats),
+        getUserStatsForGame: (steamID, appID) => client.get.userStatsForGame(steamID, appID).then(res => res.playerstats.stats),
         /**
          * @name                  getSteamGames
          * @description           Returns Steam games from store.
@@ -95,7 +95,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getSteamGames: () => client.getSteamGames().then(res => res.response.apps),
+        getSteamGames: () => client.get.steamGames().then(res => res.response.apps),
         /**
          * @name                  getSteamSoftware
          * @description           Returns Steam software from store.
@@ -103,7 +103,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getSteamSoftware: () => client.getSteamSoftware().then(res => res.response.apps),
+        getSteamSoftware: () => client.get.steamSoftware().then(res => res.response.apps),
         /**
          * @name                  getUserBadges
          * @description           Returns user owned Steam badges.
@@ -112,7 +112,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getUserBadges: (steamID) => client.getUserBadges(steamID).then(res => res.response.badges),
+        getUserBadges: (steamID) => client.get.userBadges(steamID).then(res => res.response.badges),
         /**
          * @name                  getUserCommunityBadgeProgress
          * @description           Returns user Community Badge progress.
@@ -121,7 +121,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getUserCommunityBadgeProgress: (steamID) => client.getUserCommunityBadgeProgress(steamID).then(res => res.response.quests),
+        getUserCommunityBadgeProgress: (steamID) => client.get.userCommunityBadgeProgress(steamID).then(res => res.response.quests),
 
         /**
          * @name                  getUserDisplayedBadge
@@ -131,7 +131,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserDisplayedBadge: (steamID) => client.getUserDisplayedBadge(steamID).then((res) => res.response),
+        getUserDisplayedBadge: (steamID) => client.get.userDisplayedBadge(steamID).then((res) => res.response),
 
         /**
          * @name                  getUserGames
@@ -141,7 +141,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserGames: (steamID) => client.getUserGames(steamID).then(({ response: { game_count: gameCount, games } }) => ({ gameCount, games })),
+        getUserGames: (steamID) => client.get.userGames(steamID).then(({ response: { game_count: gameCount, games } }) => ({ gameCount, games })),
         /**
          * @name                  getUserCustomizationDetails
          * @description           Returns user's profile customization details.
@@ -150,7 +150,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserCustomizationDetails: (steamID) => client.getUserCustomizationDetails(steamID).then(res => res.response.customizations),
+        getUserCustomizationDetails: (steamID) => client.get.userCustomizationDetails(steamID).then(res => res.response.customizations),
         /**
          * @name                  getUserProfileItemsEquipped
          * @description           Returns user's profile items equipped.
@@ -159,7 +159,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserProfileItemsEquipped: (steamID) => client.getUserProfileItemsEquipped(steamID).then(({ response }) => {
+        getUserProfileItemsEquipped: (steamID) => client.get.userProfileItemsEquipped(steamID).then(({ response }) => {
             const mapItems = (key) => ({
                 itemName: response[key].name,
                 itemDescription: response[key].item_description,
@@ -185,7 +185,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Object}
          */
-        getUserRecentlyPlayedGames: (steamID) => client.getUserRecentlyPlayedGames(steamID).then(({ response }) => ({
+        getUserRecentlyPlayedGames: (steamID) => client.get.userRecentlyPlayedGames(steamID).then(({ response }) => ({
             gameCount: response.total_count,
             games: response.games
         })),
@@ -197,7 +197,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {String}
          */
-        getUserLevel: (steamID) => client.getUserLevel(steamID).then(({ response: { player_level } }) => player_level),
+        getUserLevel: (steamID) => client.get.userLevel(steamID).then(({ response: { player_level } }) => player_level),
         /**
          * @name                  getLevelDistribution
          * @description           Returns data about Steam level distribution.
@@ -206,7 +206,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {String}
          */
-        getLevelDistribution: (playerLevel) => client.getLevelDistribution(playerLevel).then(({ response: { player_level_percentile } }) => player_level_percentile),
+        getLevelDistribution: (playerLevel) => client.get.levelDistribution(playerLevel).then(({ response: { player_level_percentile } }) => player_level_percentile),
         /**
          * @name                  getAppNews
          * @description           Returns news of providen appID.
@@ -215,7 +215,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {String}
          */
-        getAppNews: (appID) => client.getAppNews(appID).then(({ appnews: { newsitems } }) => newsitems),
+        getAppNews: (appID) => client.get.appNews(appID).then(({ appnews: { newsitems } }) => newsitems),
         /**
          * @name                  getInventory
          * @description           Returns Array with inventory items.
@@ -225,7 +225,7 @@ module.exports = (apiKey) => {
          * 
          * @returns {Array}
          */
-        getInventory: (appID, steamID) => client.getInventory(appID, steamID)
+        getInventory: (appID, steamID) => client.get.inventory(appID, steamID)
             .then(({ descriptions }) => descriptions
                 .map(({ market_name, appid, actions, icon_url_large, tradable, marketable, tags, name_color, type }) => ({
                     appId: appid,
